@@ -1,6 +1,8 @@
 ## Nodejs Image Upload 
 
-这个程序是一个基于Nodejs,jquery，formidable的图片上传并回显的应用。
+这个程序是一个基于Nodejs,jquery，formidable的图片上传（至uploads文件夹下）并回显的应用。
+运行效果如下：
+
 <img src="https://wx4.sinaimg.cn/mw690/006ApWmtgy1fmhizwu589j311y0kgqkm.jpg">
 
 
