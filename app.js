@@ -13,8 +13,33 @@ app.use('/uploads',express.static('uploads'));
 
 
 app.get('/',function(req,res){
-    res.sendFile(path.join(__dirname,'views/index.html'))
-})
+    var filesPath = path.join(__dirname,'uploads/');
+    //read all the files of the uploads
+    fs.readdir(filesPath,function(err,files){
+        if(err){
+            console.log(err);
+            return
+        }
+        console.log('files:',files);
+        files.forEach((file)=>{
+            fs.stat(filesPath+file,(err,stats)=>{
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                var createAt = stats.ctime;
+                var days = Math.round((Date.now()-createAt)/(1000*60*60*24));
+                if (days > 1){
+                    fs.unlink(filesPath+file,(err)=>{
+                        console.log(err)
+                    });
+                }
+            })
+        })
+    })
+    
+    res.sendFile(path.join(__dirname,'views/index.html'));
+});
 
 
 app.post('/upload_photos',function(req,res){
@@ -31,7 +56,7 @@ app.post('/upload_photos',function(req,res){
                 });
                 return true
             }
-
+           
             var type = null;
             var filename='';
             var buffer = readChunk.sync(file.path, 0, 262);
@@ -46,7 +71,7 @@ app.post('/upload_photos',function(req,res){
                     status:true,
                     filename:filename,
                     type:type.ext,
-                    pubilcPath:'uploads/' + filename    
+                    publicPath:'uploads/' + filename    
                 })
             }else{
                 photos.push({
@@ -58,7 +83,7 @@ app.post('/upload_photos',function(req,res){
                     if(err){console.log(err)}
                 })
             }
-            console.log('photos is',photos)
+            //console.log('photos is',photos)
         })
         .on('error', (err)=> {
             console.log('Error occurred during processing - ' + err);
