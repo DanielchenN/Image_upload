@@ -1,6 +1,6 @@
 ## Nodejs Image Upload 
 
-这个程序是一个基于Nodejs,jquery，formidable的图片上传（至uploads文件夹下）并回显的应用。
+这个程序是一个基于Nodejs, jQuery, FormData的图片上传（至uploads文件夹下）并回显的应用。
 运行效果如下：
 
 <img src="https://wx4.sinaimg.cn/mw690/006ApWmtgy1fmhizwu589j311y0kgqkm.jpg">
@@ -23,4 +23,4 @@
 ## 后记
 
 加入了过期本地文件自动删除的功能，减少了磁盘的负担。
-加入了前端progress进度条
+加入了 XHR 用于展示前端progress进度条
